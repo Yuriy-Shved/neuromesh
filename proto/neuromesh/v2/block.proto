@@ -1,0 +1,63 @@
+syntax = "proto3";
+package neuromesh.v2;
+option go_package = "neuromesh/pkg/proto/v2;blockpb";
+
+message Stamp {
+  uint64 nonce = 1;
+  uint32 bits  = 2;
+  uint64 date  = 3;
+}
+
+message MessageBlock {
+  bytes  id               = 1;
+  bytes  parent_author_id = 2;
+  bytes  content_payload  = 3;
+  repeated bytes routing_chain   = 4;
+  repeated bytes hop_signatures  = 5;
+  uint64 timestamp        = 6;
+  Stamp  stamp            = 7;
+}
+
+message WitnessAnnounce {
+  bytes  block_id   = 1;
+  bytes  holder_id  = 2;
+  uint64 expires_at = 3;
+  bool   is_wot     = 4;
+  bytes  signature  = 5;
+}
+
+message ContentRequest {
+  bytes  block_id     = 1;
+  bytes  requester_id = 2;
+  uint64 timestamp    = 3;
+  bytes  signature    = 4;
+}
+
+message ContentResponse {
+  MessageBlock block     = 1;
+  bytes        holder_id = 2;
+  bytes        signature = 3;
+}
+
+message SignedScore {
+  bytes  block_id   = 1;
+  bytes  auditor_id = 2;
+  float  score      = 3;
+  uint64 timestamp  = 4;
+  bytes  signature  = 5;
+}
+
+message PubkeyRecord {
+  bytes  pubkey          = 1;
+  bytes  owner_signature = 2;
+  uint64 created_at      = 3;
+  uint64 expires_at      = 4;
+  Stamp  stamp           = 5;
+  repeated WotEndorsement endorsements = 6;
+}
+
+message WotEndorsement {
+  bytes  endorser_id = 1;
+  bytes  signature   = 2;
+  uint64 timestamp   = 3;
+}

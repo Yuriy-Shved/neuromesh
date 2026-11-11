@@ -1,0 +1,11 @@
+/target/
+/bin/
+*.test
+flutter_app/build/
+flutter_app/.dart_tool/
+flutter_app/android/app/src/main/jniLibs/**/*.so
+flutter_app/windows/runner/**/*.dll
+models/*.gguf
+.idea/
+.vscode/
+*.iml
